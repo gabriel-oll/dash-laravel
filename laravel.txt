@@ -1,0 +1,40 @@
+anotações importantes - laravel:
+
+
+fluxo atual -> user > token/url > route > controller > page/include/yield > content
+
+
+fluxo exemplo -> login > validação > redirecionamento > pagina inicial(menu = home) 
+
+pagina inicial > se (menu = usuário) > validação > redirecionamento > conteúdo
+pagina inicial > se (menu = configurações) > validação > redirecionamento > conteúdo
+pagina inicial > se (menu = etc) > validação > redirecionamento > conteúdo
+
+SEÇÕES:
+
+<Paginação(routes)>
+
+<Conteúdo(controllers)>
+views
+template
+
+</>
+<Armazenamento(migrations)>
+
+<validação(seeders)>
+
+
+aula 1 - routes: "para acessar uma pagina é necessário uma rota, o acesso é realizado através de uma validação, seja o token ou url ou condição diversa"
+
+aula 2 - console: "o console é necessário para a automatização dos processos e criação de comandos personalizados"
+
+aula 3 - controllers: "os controllers são responsáveis por controlar os todo o conteúdo do projeto, ao passar pelas rotas eles são quem mostram o conteúdo ao usuário"
+
+aula 4 - views: "é a parte aonde estarão localizados todos os seus arquivos relacionados a paginação, ou seja, você irá criar pastas com seus respectivos propósitos(templates, etc.)"
+
+aula 5 - blade templates: "o template será o container que ira armazenar todo o conteúdo estático do projeto e também será o local aonde será inserido todo o conteúdo externalizado em includes ou yield, um include funciona como um container que armazenará todo o codigo lá dentro, então uma vez solicitando-o, ele chamará todo o conteúdo referente ao arquivo. Já o yield funciona tambem como um container, mas dessa vez armazenando os componentes em variáveis, podendo ser invocado conforme a necessidade."
+
+aula 6 - model: "o model armazena toda a lógica vinda do controller, ou seja, você consegue automatizar e migrar quaisquer arquivos que precisem ser reutilizados, basta armazenar o script no model e importa-lo, assim você pode migrar os dados para o banco de dados"
+
+aula 7 - migrations: "A seção de migrations é uma automatização na criação de um banco de dados, uma ferramenta que serve para criar, editar, exportar e excluir facilmente seu banco de dados, ou seja uma ferramenta de versionamento de dados."
+
