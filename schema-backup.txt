@@ -1,0 +1,266 @@
+explicação laravel:
+
+//CONTROLLERS 
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\contatos;
+
+class controllerExp extends Controller
+{
+
+    //controller via get
+    // public function ctrlExpGet () {
+    //     return "teste com GET";
+    // }
+
+    //controller via get que retorna uma view e manda dados
+    public function ctrlExpGet () {
+        // $contatos = [
+        // (object)["nome"=>"helena", "tel"=>"11985110312"],
+        // (object)["nome"=>"lucca", "tel"=>"11985324322"]
+        // ];
+
+        $con = new contatos();
+        $contatos = $con->lista();
+
+        dd($contatos->nome);
+
+        return view('contato.index', compact('contatos'));
+    }
+
+    //controller simples que envia via post
+    // public function ctrlExpPost () {
+    //     return "teste com POST";
+    // }
+
+    //controller que pega os dados da requisição
+    public function ctrlExpPost (Request $req) {
+        var_dump($req->all());
+
+        return "teste com POST";
+    }
+
+    //controller via put
+    public function ctrlExpPut () {
+        return "teste com PUT";
+    }
+    
+}
+
+
+//model
+
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+//recebe toda a lógica do que seria uma função do controller, ou seja eu exporto um objetoi global
+
+class contatos extends Model
+{
+    public function lista () {
+       return
+        (object)["nome"=>"helena", "tel"=>"11985110312"];
+        (object)["nome"=>"lucca", "tel"=>"11949101291"];
+    }
+}
+
+
+//migrations
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateContatosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        //armazena todo o esquema da tabela
+
+        Schema::create('contatos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome', 255);
+            $table->string('telefone', 25);
+            $table->string('email');
+            $table->timestamps(); 
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('contatos');
+    }
+}
+
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateProdutosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('produtos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('titulo', 255);
+            $table->string('descrição', 255);
+            $table->string('valor',5,2);
+            $table->timestamps();            
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('produtos');
+    }
+}
+
+
+//template
+
+//armazena os includes e yields, sendo a base reutilizavel do sistema
+
+@include('layouts.includes.head')
+@include('layouts.includes.footer')
+
+//include 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @include('layouts.includes.teste')
+    <title>@yield('titulo')</title>
+</head>
+
+
+<style>
+    td {
+        border: 1px solid #121212;
+        padding: 10px
+    }
+    thead {
+        background-color: aquamarine;
+    }
+</style>
+
+
+<body>
+
+    @yield('conteudo')
+</body>
+</html>
+
+//yields
+
+//salva o conteúdo como uma variavel
+
+@extends('layouts.site')
+
+@section('titulo', 'estudos de laravel')
+
+@section('conteudo')
+
+<h3>essa é a view index !!</h3>
+
+<table class="table data">
+    <thead>
+        <tr>
+            <td>nome</td>
+            <td>telefone</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($contatos as $contato)
+        <tr>
+            <td>{{$contato}}</td>
+            <td>{{$contato}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+//routes
+
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('index');
+});
+
+// pega o valor da variavel id
+// Route::get('/contato/{id}', function ($id) {
+//     return 'contato id=' . $id;
+// });
+
+//redireciona para o controler
+Route::get('/contato/ctrl', ['uses'=>'controllerExp@ctrlExpGet']);
+Route::post('/contato/ctrl', ['uses'=>'controllerExp@ctrlExpPost']);
+Route::put('/contato/ctrl', ['uses'=>'controllerExp@ctrlExpPut']);
+
+// define a variavel como nula e tira sua obrigatoridade
+// Route::get('/contato/{id?}', function ($id = null) {
+//     return 'contato id=' . $id;
+// });
+
+// recebe via post
+
+// Route::post('/contato', function () {
+//     pega as informações vindas do formulário
+//     var_dump($_POST);
+//     return 'contato POST';
+// });
+
+// Route::put('/contato', function () {
+//     return 'contato PUT';
+// });
+
+// Route::post('/contato', function () {
+//     return 'contato POST';
+// });
+
+
+observações para a posteridade:
+
+os includes servem para importar bases de codigo, como todo o seu template, o yield depende de uma estrutura definida para ser importado.

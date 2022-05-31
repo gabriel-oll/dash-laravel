@@ -1,39 +1,19 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-//my routes
+Route::get('/admin/cursos', ['as'=>'admin.cursos', 'uses'=>'Admin\cursoController@index']);
 
-Route::get('/routes', function () {
-    echo('get');
-    return view('routes');
-});
+Route::get('/admin/cursos/adicionar', ['as'=>'admin.cursos.adicionar', 'uses'=>'Admin\cursoController@adicionar']);
 
-Route::post('/routes', function () {
-    echo('post');
-    return view('routes');
-});
+Route::post('/admin/cursos/salvar', ['as'=>'admin.cursos.salvar', 'uses'=>'Admin\cursoController@salvar']);
 
-Route::put('/routes', function () {
-    echo('put');
-    return view('routes');
-});
+Route::get('/admin/cursos/editar/{id}', ['as'=>'admin.cursos.editar', 'uses'=>'Admin\cursoController@editar']);
 
-Route::post('/routes', ['uses'=>'controllerExample@content']);
+Route::put('/admin/cursos/atualizar/{id}', ['as'=>'admin.cursos.atualizar', 'uses'=>'Admin\cursoController@atualizar']);
 
-Route::post('/routes/catch', ['uses'=>'controllerExample@contentCatch']);
-
-// my routes
+Route::get('/admin/cursos/deletar/{id}', ['as'=>'admin.cursos.deletar', 'uses'=>'Admin\cursoController@deletar']);
