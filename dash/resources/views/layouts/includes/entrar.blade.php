@@ -1,8 +1,8 @@
-<div class="row main-row">
+<div class="row main-row ccenter">
     <div class="container">
-      <h3 class="center">Entrar</h3>
+      <h3 class="center title">Entrar</h3>
     </div>
-    <div class="row">
+    <div class="row cover">
         <form action="{{route('site.login.entrar')}}" method="post">
             {{ csrf_field() }}
 

@@ -1,6 +1,6 @@
 <div class="row main-row">
   <div class="container">
-    <h3 class="center">Editar cursos:</h3>
+    <h3 class="center title">Editar cursos:</h3>
   </div>
   <div class="row">
       <form action="{{route('admin.cursos.atualizar',$registro->id)}}" method="post" enctype="multipart/form-data">

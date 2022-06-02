@@ -1,6 +1,6 @@
 <div class="row main-row">
     <div class="container">
-      <h3 class="center">Lista de cursos:</h3>
+      <h3 class="center title">Lista de cursos:</h3>
     </div>        
     <table>
       <thead>
@@ -11,7 +11,7 @@
           <th>Valor</th>
           <th>Imagem</th>
           <th>Publicado</th>
-          <th>Ação</th>
+          <th colspan="2">Ação</th>
         </tr>
       </thead>
       <tbody>
@@ -21,13 +21,13 @@
           <td>{{$registro->titulo}}</td>
           <td>{{$registro->descricao}}</td>
           <td>{{$registro->valor}}</td>
-          <td><img src="{{asset($registro->imagem)}}" alt="{{$registro->titulo}}"></td>          
+          <td><img src="{{asset($registro->imagem)}}" alt="{{$registro->titulo}}" class="img-td"></td>          
           <td>{{$registro->publicado}}</td>
           <td>
-            <a href="{{route('admin.cursos.editar', $registro->id)}}" class="btn deep-orange">editar</a>
+            <a href="{{route('admin.cursos.editar', $registro->id)}}" class="edit-btn ccenter"><img src="http://127.0.0.1:8000/img/cursos//edit.svg" class="login_img"><div class="ccenter">EDITAR</div></a>
           </td>
           <td>
-            <a href="{{route('admin.cursos.deletar', $registro->id)}}" class="btn red">deletar</a>
+            <a href="{{route('admin.cursos.deletar', $registro->id)}}" class="delete-btn ccenter"><img src="http://127.0.0.1:8000/img/cursos//delete.svg" class="login_img delete-img"><div class="ccenter">DELETAR</div></a>
           </td>
         </tr>
         @endforeach
